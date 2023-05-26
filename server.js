@@ -1,6 +1,6 @@
 import http from "http"
 import { handler } from "./build/handler.js"
-import socket_io from "./socket"
+import socket_io from "./socket.js"
 import express from "express"
 
 const app = express()
