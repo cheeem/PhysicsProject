@@ -8,16 +8,15 @@
     const socket = io()
     const user_id = uuid()
 
-    let messages: string[] = []
     let game: Game
 
-    socket.on("to_game", (new_game: Game, player_id) => {
+    socket.on("to_game", (new_game: Game, player_id: string) => {
         if(player_id !== user_id) return;
         game = new_game
     })
 
     socket.on("receive", (new_messages) => {
-        messages = new_messages
+        game.messages = new_messages
     })
 
     function new_game() {
@@ -45,7 +44,7 @@
         
                 }}
             />
-            {#each messages as message}
+            {#each game.messages as message}
                 <p> {message} </p>
             {/each}
         </main>

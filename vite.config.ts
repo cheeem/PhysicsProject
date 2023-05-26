@@ -36,7 +36,6 @@ function configureServer(server: any) {
 			games.set(game_id, game)
 
 			io.emit("to_game", game, player_id)
-			io.emit("receive", messages) 
 
 		})
 
