@@ -1,14 +1,14 @@
-import { sveltekit } from '@sveltejs/kit/vite'
-import { defineConfig } from 'vite'
+import { sveltekit } from "@sveltejs/kit/vite"
+import { defineConfig } from "vite"
 
-import type { Game, Player } from './types'
+import type { Game, Player } from "./types"
 
-import { Server, Socket } from 'socket.io'
+import { Server, Socket } from "socket.io"
 
-const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" 
 
 const webSocketServer = {
-	name: 'webSocketServer',
+	name: "webSocketServer",
 	configureServer,
 }
 
@@ -18,11 +18,13 @@ function configureServer(server: any) {
 
     const io = new Server(server.httpServer)
 
-	io.on('connection', (socket: Socket) => {
-	
-		socket.on('new_game', (player_id: string) => {
+	io.on("connection", (socket: Socket) => {
 
-			const game_id = new_game_id(games, 5);
+		io.emit("test", "Connected... Yay!!");
+	
+		socket.on("new_game", (player_id: string) => {
+
+			const game_id = new_game_id(games, 5) 
 			const messages: string[] = []
 
 			const game: Game = {
@@ -39,7 +41,7 @@ function configureServer(server: any) {
 
 		})
 
-		socket.on('join', (game_id: string, player_id: string) => {
+		socket.on("join", (game_id: string, player_id: string) => {
 
 			const game: Game | undefined = games.get(game_id)
 
@@ -49,7 +51,7 @@ function configureServer(server: any) {
 
 		})
 
-		socket.on('send', (game_id: string, message: string) => {
+		socket.on("send", (game_id: string, message: string) => {
 
 			const messages = games.get(game_id)?.messages 
 
@@ -57,7 +59,7 @@ function configureServer(server: any) {
 
 			messages.push(message)
 		
-			io.emit('receive', messages)
+			io.emit("receive", messages)
 
 		})
 
@@ -70,13 +72,8 @@ function new_game_id(games: Map<String, Game>, size: number) {
 	let game_id: string = ""
 
 	do {
-		for(let i = 0; i < size; i++) {
-			game_id += characters.charAt(
-				Math.floor(
-					Math.random() * characters.length
-				)
-			);
-		}
+		for(let i = 0; i < size; i++)
+			game_id += characters.charAt(Math.floor(Math.random() * characters.length));
 	} while(games.has(game_id))
 
 	return game_id

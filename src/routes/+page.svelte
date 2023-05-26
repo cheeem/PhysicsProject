@@ -10,6 +10,8 @@
 
     let game: Game
 
+    socket.on("test", (msg: string) => console.log(msg));
+
     socket.on("to_game", (new_game: Game, player_id: string) => {
         if(player_id !== user_id) return;
         game = new_game
