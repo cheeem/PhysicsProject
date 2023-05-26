@@ -3,7 +3,6 @@ import { defineConfig } from "vite"
 
 import type { Game, Player } from "./types"
 
-import { Server, Socket } from "socket.io"
 import handle_socket from "./server/socket.js"
 
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" 
