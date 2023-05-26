@@ -1,5 +1,5 @@
-import type { Game, Player } from './types'
-import { Server, Socket } from 'socket.io'
+import type { Game, Player } from "./types"
+import { Server, Socket } from "socket.io"
 
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -9,9 +9,9 @@ export default function configureServer(server: any) {
 
 	const games: Map<String, Game> = new Map<String, Game>()
 
-	io.on('connection', (socket: Socket) => {
+	io.on("connection", (socket: Socket) => {
 	
-		socket.on('new_game', (player_id: string) => {
+		socket.on("new_game", (player_id: string) => {
 
 			const game_id = new_game_id(games, 5);
 			const messages: string[] = []
@@ -30,7 +30,7 @@ export default function configureServer(server: any) {
 
 		})
 
-		socket.on('join', (game_id: string, player_id: string) => {
+		socket.on("join", (game_id: string, player_id: string) => {
 
 			const game: Game | undefined = games.get(game_id)
 
@@ -40,7 +40,7 @@ export default function configureServer(server: any) {
 
 		})
 
-		socket.on('send', (game_id: string, message: string) => {
+		socket.on("send", (game_id: string, message: string) => {
 
 			const messages = games.get(game_id)?.messages 
 
@@ -48,7 +48,7 @@ export default function configureServer(server: any) {
 
 			messages.push(message)
 		
-			io.emit('receive', messages)
+			io.emit("receive", messages)
 
 		})
 
