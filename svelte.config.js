@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-netlify';
+import adapter from '@sveltejs/adapter-node'
 import preprocess from 'svelte-preprocess'
 //import { vitePreprocess } from '@sveltejs/kit/vite';
 
@@ -6,10 +6,7 @@ import preprocess from 'svelte-preprocess'
 const config = {
 	preprocess: preprocess(),
 	kit: {
-		adapter: adapter({
-			edge: false,
-			split: false,
-		}),
+		adapter: adapter(),
 	}
 };
 
