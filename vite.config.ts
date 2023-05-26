@@ -1,10 +1,12 @@
 import { sveltekit } from '@sveltejs/kit/vite'
 import { defineConfig } from 'vite'
-import configureServer from './socket'
+import socket_io from './socket'
 
 const web_socket_server = {
 	name: "sveltekit_socket_io",
-	configureServer,
+	configureServer(server: any) {
+		socket_io(server.httpServer)
+	},
 }
 
 export default defineConfig({

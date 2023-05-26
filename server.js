@@ -1,12 +1,12 @@
 import http from "http"
 import { handler } from './build/handler.js'
-import configureServer from "./socket.js"
+import socket_io from "./socket.js"
 import express from 'express'
 
 const app = express()
 const server = http.createServer(app)
 
-configureServer(server)
+socket_io(server)
 
 app.use(handler)
 

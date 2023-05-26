@@ -5,9 +5,9 @@ const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 export default function configureServer(server: any) {
 
-	const games: Map<String, Game> = new Map<String, Game>()
+	const io = new Server(server);
 
-    const io = new Server(server.httpServer)
+	const games: Map<String, Game> = new Map<String, Game>()
 
 	io.on('connection', (socket: Socket) => {
 	
